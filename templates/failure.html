@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+{% block title %}Failure{% endblock %}
+{% block bodyClass %}failure{% endblock %}
+{% block header %}<h3>Failure!</h3>{% endblock %}
+{% block content %}
+    <p>Please try again!</p>
+    <a href="{{ url_for('questions') }}"><button type="button">Back to questionare!</button></a>
+{% endblock %}

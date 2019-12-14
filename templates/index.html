@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block title %}{{ _('Welcome to Questionnaire') }}{% endblock %}
+{% block bodyClass %}home{% endblock %}
+{% block header %}{{ _('Welcome to Questionnaire!') }}{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <p>{{ _('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id ab ullam perferendis quo sequi alias expedita vel quia! Autem itaque placeat dolorum eveniet soluta eos harum, necessitatibus officiis quasi deserunt!') }}</p>
+    </div>
+    <div class="row justify-content-center">
+        <a href="{{ url_for('questions') }}"><button type="button" class="btn btn-primary btn-lg btn-block">{{ _('Start questionnaire!') }}</button></a>
+    </div>
+{% endblock %}
