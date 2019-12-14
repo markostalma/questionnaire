@@ -4,9 +4,11 @@ from config import *
 from flask_babel import Babel, gettext, ngettext, _
 from flask_mysqldb import MySQL
 from flask_simple_geoip import SimpleGeoIP
-import re
+import re, json
+
 # Init App
 app = Flask(__name__)
+
 # DB Config and Init
 app.config['MYSQL_DB'] = DB_SETTINGS['MYSQL_DB']
 app.config['MYSQL_USER'] = DB_SETTINGS['MYSQL_USER']
@@ -14,9 +16,11 @@ app.config['MYSQL_PASSWORD'] = DB_SETTINGS['MYSQL_PASSWORD']
 app.config['MYSQL_HOST'] = DB_SETTINGS['MYSQL_HOST']
 app.config['MYSQL_PORT'] = DB_SETTINGS['MYSQL_PORT']
 mysql = MySQL(app)
+
 # Geolocation Config and Init
 app.config["GEOIPIFY_API_KEY"] = GEOIPIFY_API_KEY
 geoip = SimpleGeoIP(app)
+
 # Babel Config and Init
 app.config['LANGUAGES'] = LANGUAGES
 app.config['BABEL_DEFAULT_LOCALE'] = BABEL_DEFAULT_LOCALE
@@ -24,22 +28,24 @@ babel = Babel(app)
 
 # Get Location of User and return his language
 @babel.localeselector
-def get_locale( methods=['GET', 'POST'] ):
-    name = "name"
-    if name == "serbian":
+def get_locale():
+    data = "english"
+    if data == "serbian":
         return "sr"
-    elif name == "english":
+    elif data == "english":
         return "en"
     else:
         return request.accept_languages.best_match(LANGUAGES)
-    # return "en"
-    # return request.accept_languages.best()
 
-
-#Change Language on Click
-# @app.route('/language')
-def language():
-    return "Napraviti variablu koja kupi iz fronta na klik!"
+# Change language on image ALT
+@app.route('/get-languageR', methods=['POST'])
+def get_language():
+    rf = request.form
+    for item in rf:
+        data = item
+    print(data)
+    data = json.loads(data)
+    print(data)  # data = "english"
 
 # Error Page - 404
 @app.errorhandler(404)
