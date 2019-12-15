@@ -38,14 +38,18 @@ def get_locale():
         return request.accept_languages.best_match(LANGUAGES)
 
 # Change language on image ALT
-@app.route('/get-languageR', methods=['POST'])
+@app.route('/get-language', methods=['GET', 'POST'])
 def get_language():
-    rf = request.form
-    for item in rf:
-        data = item
-    print(data)
-    data = json.loads(data)
-    print(data)  # data = "english"
+    data = request.get_json()
+    # if request.method == 'POST':
+    #     language = request.args.get("alt")
+    #     print(language)
+    # rf = request.form
+    # for item in rf:
+    #     data = item
+    # print(data)
+    # data = json.loads(data)
+    # print(data)  # data = "english"
 
 # Error Page - 404
 @app.errorhandler(404)
@@ -53,7 +57,7 @@ def not_found(e):
     return render_template("404.html")
 
 # Home Page route
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     name = request.args.get("name", "Guest")
     return render_template("index.html", name=name)
